@@ -1,7 +1,7 @@
 # Collaborative-editor
-Simple collaborative editor
-
-# How to run.
-git clone https://github.com/shonali-ks/Collaborative-editor.git
-npm install
-node server.js
+Simple collaborative editor<br />
+<br />
+# How to run.<br />
+git clone https://github.com/shonali-ks/Collaborative-editor.git<br />
+npm install<br />
+node server.js<br />
