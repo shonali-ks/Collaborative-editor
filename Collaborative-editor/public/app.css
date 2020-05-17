@@ -41,4 +41,11 @@ input{
     top: 2%;
     right: 5%;
     color: #f7d24d;
+    
+}
+#btn{
+    position: fixed;
+    top: 2%;
+    right: 2%;
+    color: #f7d24d;
 }
