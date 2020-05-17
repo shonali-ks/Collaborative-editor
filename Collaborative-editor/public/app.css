@@ -1,0 +1,44 @@
+html, body {
+	background-color:#464953;
+}
+
+*, html, body {
+    font-family: 'Monaco','Lucida Console',sans-serif;
+}
+
+h4 {
+    margin:0 0 10px 0;
+    font-size:3em;
+    color: #f7f1f1;
+}
+#header h1{
+    font-family: 'Times New Roman', Times, serif;
+    color: beige;
+}
+#header{
+    box-shadow: 8px 8px 5px grey;
+    margin: 10px;
+}
+
+#testing-area {
+	width: 85%;
+	height: 85%;
+	border: 3px solid #cccccc;
+    padding: 5px;
+    margin-left: 10%;
+    font-family: Tahoma, sans-serif;
+    box-shadow: 8px 8px 5px grey;
+    background-color: #1d1e22;
+    color: yellow;
+	
+
+}
+textarea{
+    color: #f7d24d;
+}
+input{
+    position: fixed;
+    top: 2%;
+    right: 5%;
+    color: #f7d24d;
+}
