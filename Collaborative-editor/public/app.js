@@ -1,4 +1,4 @@
- const socket = io('http://localhost:5000')
+const socket = io('http://localhost:5000')
 var testarea = document.getElementById("testing-area");
 
 const messageContainer = document.getElementById('message-container')
