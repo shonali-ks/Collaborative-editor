@@ -5,7 +5,9 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 var multer = require('multer');
 var bodyParser = require('body-parser');
-
+var db = require('mongoose');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 const  port = process.env.PORT || 5000;
 const users = {}
 /* App */
@@ -23,7 +25,8 @@ io.on('connection', (socket) => {
         users[socket.id] = name
         socket.broadcast.emit('user-connected', name)
       })
-      socket.on('send-chat-message', message => {
+      
+    socket.on('send-chat-message', message => {
         socket.broadcast.emit('chat-message', { message: message, name: users[socket.id] })
       })
       
@@ -36,4 +39,37 @@ io.on('connection', (socket) => {
         socket.broadcast.emit('myInputUpdate', data);
     });
 });
+
+
+db.connect('mongodb://localhost:27017/editor', {useNewUrlParser: true, useUnifiedTopology: true });
+db.connection.once('open',(err)=>{
+    if(err)
+        console.log("error in db connection");
+    else
+        console.log("db connected");
+    
+});
+var schema = new db.Schema({
+    
+    doc_name: String,
+    doc: String
+});
+var model = db.model("file",schema);
+
+app.post("/",(req,res)=>{
+  
+  var data = new model({
+    doc : req.body.data,
+  
+  doc_name: req.body.doc_name
+});
+
+  console.log(data);
+  data.save((err,doc)=> {
+    if(!err) {res.send(doc);console.log(doc);}
+    else console.log("error in saving");
+});
+
+});
+
 
