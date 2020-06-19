@@ -16,8 +16,8 @@
   <div id=main>
     <div id="wrapper">
         
-        <div id="header" style="background-color: #4caf50">
-            <h1>Collaborative Editor<span class="ctrl>"><button id="btn" style="float: right;" class="btn btn-outline-light" type="button" onclick="download()">Save</button><input style="float: right;" class="btn btn-outline-light" type="file" on-read-file="displayFileContents(contents)" /></span></h1>
+        <div id="header" style="background-color: #4caf50"> 
+            <h1>Collaborative Editor<span class="ctrl>"><button  style="float: right;" class="btn btn-outline-light" type="button" onclick="save();alert('Data saved')">Save</button><button id="btn" style="float: right;" class="btn btn-outline-light" type="button" onclick="download()">Download</button><input style="float: right;" class="btn btn-outline-light" type="file" id="inputfile" /></span></h1>
             
         </div>
         <div ng-app="serverExe" ng-controller="someCtrl">
@@ -46,39 +46,20 @@
   <script src="/app.js"></script>
     <script>
       //to display the browsed file
-            var exeApp = angular.module('serverExe', [])
-            .directive('onReadFile', function($parse) {
-            return {
-              restrict: 'A',
-              scope: false,
-              link: function(scope, element, attrs) {
-                element.bind('change', function(e) {
-        
-                  var onFileReadFn = $parse(attrs.onReadFile);
-                  var reader = new FileReader();
-        
-                  reader.onload = function() {
-                    var fileContents = reader.result;
-                    
-                    scope.$apply(function() {
-                      onFileReadFn(scope, {
-                        'contents': fileContents
-                      });
-                    });
-                  };
-                  reader.readAsText(element[0].files[0]);
-                });
-              }
-            };
-          })
-          .controller('someCtrl', function($scope) {
-        
-            $scope.displayFileContents = function(contents) {
-              console.log(contents);
-              $scope.results = contents;
-            };   
-            
-          });
+      var control = document.getElementById("inputfile"); 
+    control.addEventListener("change", function(event){ 
+        var reader = new FileReader();      
+        reader.onload = function(event){
+            var contents = event.target.result;     
+            document.getElementById('testing-area').value = contents;            
+        };      
+        reader.onerror = function(event){
+            console.error("File could not be read! Code " + event.target.error.code);
+        };      
+        console.log("Filename: " + control.files[0].name);
+        reader.readAsText(control.files[0]);        
+    }, false);
+
           //to save the file
          function download(){
                   var text = document.getElementById("testing-area").value;
