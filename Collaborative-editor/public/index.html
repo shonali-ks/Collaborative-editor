@@ -3,33 +3,47 @@
     <title>Textarea collaborative editor sample</title>
     <script src="/socket.io/socket.io.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <script src="Scripts/jquery-3.1.1.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="Scripts/jquery.form.min.js"></script>
-    <link rel=stylesheet href="/app.css"/>
+    <script defer src="http://localhost:5000/socket.io/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script defer src="app.js"></script>
+    <link rel=stylesheet href="app.css"/>
 </head>
 <body>
-       
+    
+
+  
+  <div id=main>
     <div id="wrapper">
-        <div id="header">
-            <h1>Collaborative Editor</h1>
+        
+        <div id="header" style="background-color: #4caf50">
+            <h1>Collaborative Editor<span class="ctrl>"><button id="btn" style="float: right;" class="btn btn-outline-light" type="button" onclick="download()">Save</button><input style="float: right;" class="btn btn-outline-light" type="file" on-read-file="displayFileContents(contents)" /></span></h1>
+            
         </div>
         <div ng-app="serverExe" ng-controller="someCtrl">
             <div id="editor">
                 <form novalidate="">
             <textarea autofocus="true" ng-model="results" id="testing-area" onkeyup="input_update_callback();" placeholder="Insert text here" ></textarea>
-            <input class="btn btn-dark" type="file" on-read-file="displayFileContents(contents)" /><br/>
-            <button id="btn" class="btn btn-dark" type="button" onclick="download()">Save</button>
-              
+            
             
         </form>
     </div>
              </div>
-        
+            </div>      
     </div>
-    <script src="/app.js"></script>
+     
+    
+    <div id="chat">
+        
+            <div id="message-container" style="color: aliceblue;">
+            <form id="send-container">
+              <input  type="text" style="width: 15%;position: fixed;right: 5%;bottom:0px;" id="message-input">
+              <button type="submit" class="btn btn-dark" style="width: 5%;position: fixed;right: 0;bottom:0px;"   id="send-button">Send</button>
+            </form>
+          </div>
+          
+    </div>
+  <script src="/app.js"></script>
     <script>
       //to display the browsed file
             var exeApp = angular.module('serverExe', [])
@@ -66,7 +80,7 @@
             
           });
           //to save the file
-          function download(){
+         function download(){
                   var text = document.getElementById("testing-area").value;
                   text = text.replace(/\n/g, "\r\n"); // To retain the Line breaks.
                   var blob = new Blob([text], { type: "text/plain"});
@@ -79,7 +93,10 @@
                   anchor.click();
                   document.body.removeChild(anchor);
               }
-                      
+                     
             </script>
+                <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
